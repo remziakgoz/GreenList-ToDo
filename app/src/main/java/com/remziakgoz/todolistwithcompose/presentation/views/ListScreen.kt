@@ -39,7 +39,9 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -57,6 +59,14 @@ fun ItemList(navController: NavController, viewModel: ItemViewModel) {
     val isDarkTheme = LocalContext.current.resources.configuration.uiMode and
             android.content.res.Configuration.UI_MODE_NIGHT_MASK == android.content.res.Configuration.UI_MODE_NIGHT_YES
 
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val density = LocalDensity.current.density
+
+    val topPadding = screenHeight * 0.1f
+    val bottomPadding = screenHeight * 0.1f
+    val adjustedTopPadding = topPadding / density
+    val adjustedBottomPadding = bottomPadding / density
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -72,9 +82,9 @@ fun ItemList(navController: NavController, viewModel: ItemViewModel) {
                 modifier = Modifier
                     .fillMaxSize()
                     .paint(painter = if (isDarkTheme) {
-                        painterResource(R.drawable.todobackgrounddark)
+                        painterResource(R.drawable.todobackgroundfordark)
                     } else {
-                        painterResource(R.drawable.todobackground2)
+                        painterResource(R.drawable.todobackgroundforwhite)
                     }, contentScale = ContentScale.Crop)
             ) {
                 LazyColumn(
@@ -86,7 +96,7 @@ fun ItemList(navController: NavController, viewModel: ItemViewModel) {
                     ),
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = 78.dp, bottom = 10.dp)
+                        .padding(top = 78.dp + adjustedTopPadding, bottom = 10.dp + adjustedBottomPadding)
                 ) {
                     items(itemList, key = { item -> item.id }) { item ->
                         val dismissState = rememberSwipeToDismissBoxState(
