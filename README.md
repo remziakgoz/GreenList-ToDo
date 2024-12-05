@@ -2,6 +2,13 @@
 
 This project is a simple **ToDo List** application developed using **Jetpack Compose**. The app provides basic functionalities such as adding tasks, deleting tasks, and managing the task list. It is structured using modern Android development techniques and the MVVM architecture.
 
+## Screenshots
+
+<img src="https://github.com/user-attachments/assets/0ac6910d-e4db-46f8-b860-42796c1e1717" alt="Screenshot 1" width="400"/>
+<img src="https://github.com/user-attachments/assets/f22a2c1a-2f3f-44ff-873f-55369089baa6" alt="Screenshot 2" width="400"/>
+<img src="https://github.com/user-attachments/assets/68668d60-108e-455a-b3c9-4e5fa65b742e" alt="Screenshot 3" width="400"/>
+<img src="https://github.com/user-attachments/assets/1acfb5f2-b3a9-4561-a874-2e766afd8a74" alt="Screenshot 4" width="400"/>
+
 ## Features
 
 - **Add Task:** Users can add new tasks through the app.
