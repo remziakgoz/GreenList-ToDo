@@ -1,5 +1,6 @@
 package com.remziakgoz.todolistwithcompose.presentation.views
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,6 +50,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.remziakgoz.todolistwithcompose.R
+import com.remziakgoz.todolistwithcompose.data.util.SharedPreferencesHelper
 import com.remziakgoz.todolistwithcompose.domain.model.Item
 import com.remziakgoz.todolistwithcompose.presentation.Screen
 
@@ -144,7 +146,7 @@ fun ItemList(navController: NavController, viewModel: ItemViewModel) {
                                 }
                             }
                         ) {
-                            ItemRow(item = item)
+                            ItemRow(item = item, context = LocalContext.current)
                         }
                     }
                 }
@@ -153,8 +155,8 @@ fun ItemList(navController: NavController, viewModel: ItemViewModel) {
 }
 
 @Composable
-fun ItemRow(item: Item) {
-    val isChecked = remember { mutableStateOf(false) }
+fun ItemRow(item: Item, context: Context) {
+    val isChecked = remember { mutableStateOf(SharedPreferencesHelper.getCheckedState(context = context, itemId = item.id)) }
 
     Column(
         modifier = Modifier
@@ -187,6 +189,7 @@ fun ItemRow(item: Item) {
                 checked = isChecked.value,
                 onCheckedChange = {
                     isChecked.value = it
+                    SharedPreferencesHelper.saveCheckedState(context = context, itemId = item.id, isChecked = it)
                 },
                 colors = CheckboxDefaults.colors(
                     checkedColor = Color.Green,
